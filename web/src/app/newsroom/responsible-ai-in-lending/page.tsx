@@ -65,7 +65,7 @@ export default function ResponsibleAiArticlePage() {
                 <ol className="flex items-center gap-[9px]">
                   <li>
                     <Link
-                      href="/#newsroom"
+                      href="/newsroom"
                       className="text-[13px] font-medium text-slate-light hover:text-primary"
                     >
                       Newsroom

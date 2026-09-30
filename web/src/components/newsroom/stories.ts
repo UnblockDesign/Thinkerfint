@@ -17,6 +17,8 @@ export type Story = {
   date: string
   title: string
   excerpt: string
+  /** Article page; omitted until the story has one */
+  href?: string
 }
 
 export const stories: Story[] = [
@@ -27,6 +29,7 @@ export const stories: Story[] = [
     published: "2026-09-18",
     date: "18 Sep 2026",
     title: "Responsible AI in lending starts with visible decisions",
+    href: "/newsroom/responsible-ai-in-lending",
     excerpt:
       "Five governance practices that keep automation useful, explainable, and accountable.",
   },

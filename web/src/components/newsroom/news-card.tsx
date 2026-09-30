@@ -45,7 +45,7 @@ export function NewsCard({
           {story.excerpt}
         </p>
         <Link
-          href="#"
+          href={story.href ?? "#"}
           className="flex items-center gap-2 text-[13px] font-semibold text-foreground after:absolute after:inset-0"
         >
           Read story

@@ -45,7 +45,7 @@ export function RelatedArticles() {
             </h2>
           </div>
           <Link
-            href="/#newsroom"
+            href="/newsroom"
             className="flex items-center gap-2 text-sm font-semibold text-primary hover:underline"
           >
             View all articles
