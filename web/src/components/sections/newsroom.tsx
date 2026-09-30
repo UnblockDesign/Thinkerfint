@@ -12,6 +12,7 @@ const stories = [
     category: "Perspective",
     date: "18 Sep 2026",
     title: "Responsible AI in lending starts with visible decisions",
+    href: "/newsroom/responsible-ai-in-lending",
     excerpt:
       "Five governance practices that keep automation useful, explainable, and accountable.",
   },
@@ -68,7 +69,7 @@ export function Newsroom() {
                   {story.excerpt}
                 </p>
                 <Link
-                  href="#"
+                  href={story.href ?? "#"}
                   className="flex items-center gap-2 text-[13px] font-semibold text-foreground after:absolute after:inset-0"
                 >
                   Read story
