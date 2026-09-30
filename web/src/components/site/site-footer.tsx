@@ -6,16 +6,21 @@ import { Logo } from "@/components/site/logo"
 const columns = [
   {
     title: "PRODUCTS",
-    links: ["Digital Lending", "Loan Origination", "Databridge"],
+    links: [
+      { label: "Digital Lending", href: "/#products" },
+      { label: "Loan Origination", href: "/products/loan-origination" },
+      { label: "Databridge", href: "/products/databridge" },
+    ],
   },
-  { title: "COMPANY", links: ["About", "Contact", "Newsroom"] },
+  {
+    title: "COMPANY",
+    links: [
+      { label: "About", href: "/about" },
+      { label: "Contact", href: "/about#contact" },
+      { label: "Newsroom", href: "/newsroom" },
+    ],
+  },
 ]
-
-const hrefs: Record<string, string> = {
-  About: "/about",
-  Contact: "/about#contact",
-  Newsroom: "/#newsroom",
-}
 
 export function SiteFooter() {
   return (
@@ -41,9 +46,9 @@ export function SiteFooter() {
                 <p>{col.title}</p>
                 <ul>
                   {col.links.map((link) => (
-                    <li key={link}>
-                      <Link href={hrefs[link] ?? "#"} className="hover:underline">
-                        {link}
+                    <li key={link.label}>
+                      <Link href={link.href} className="hover:underline">
+                        {link.label}
                       </Link>
                     </li>
                   ))}

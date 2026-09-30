@@ -1,8 +1,3 @@
-import Image from "next/image"
-import Link from "next/link"
-import { ArrowUpRightIcon } from "lucide-react"
-
-import { Card } from "@/components/ui/card"
 import { Container } from "@/components/site/container"
 import { SectionHeading } from "@/components/site/section-heading"
 
@@ -34,6 +29,8 @@ const stories = [
       "How our new review workspace reduces repetitive checks while preserving human ownership.",
   },
 ]
+import { NewsCard } from "@/components/newsroom/news-card"
+import { stories } from "@/components/newsroom/stories"
 
 export function Newsroom() {
   return (
@@ -41,8 +38,8 @@ export function Newsroom() {
       <Container className="flex flex-col gap-12 py-14 lg:py-[72px]">
         <SectionHeading eyebrow="Case study Highlight" title="Newsroom" />
         <div className="grid gap-4 md:grid-cols-3">
-          {stories.map((story) => (
-            <Card
+          {stories.slice(0, 3).map((story) => (
+            <NewsCard
               key={story.title}
               className="group relative gap-0 rounded-lg border py-0 ring-0 md:min-h-[500px]"
             >
@@ -77,6 +74,9 @@ export function Newsroom() {
                 </Link>
               </div>
             </Card>
+              story={story}
+              className="md:min-h-[500px]"
+            />
           ))}
         </div>
       </Container>

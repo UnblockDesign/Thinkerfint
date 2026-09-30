@@ -32,12 +32,12 @@ export const products = [
   },
   {
     title: "Loan Origination",
-    href: "/#products",
+    href: "/products/loan-origination",
     description: "Guided origination workflows with governed decisions.",
   },
   {
     title: "Databridge",
-    href: "/#products",
+    href: "/products/databridge",
     description: "Governed integrations with core and data providers.",
   },
 ]
@@ -45,6 +45,7 @@ export const products = [
 const links: { title: string; href: string; match?: string }[] = [
   { title: "Services", href: "/#lenders" },
   { title: "Newsroom", href: "/#newsroom", match: "/newsroom" },
+  { title: "Newsroom", href: "/newsroom" },
   { title: "About", href: "/about" },
 ]
 
