@@ -44,7 +44,7 @@ export const products = [
 
 const links = [
   { title: "Services", href: "/#lenders" },
-  { title: "Newsroom", href: "/#newsroom" },
+  { title: "Newsroom", href: "/newsroom" },
   { title: "About", href: "/about" },
 ]
 
