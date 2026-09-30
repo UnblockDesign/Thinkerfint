@@ -42,8 +42,9 @@ export const products = [
   },
 ]
 
-const links = [
+const links: { title: string; href: string; match?: string }[] = [
   { title: "Services", href: "/#lenders" },
+  { title: "Newsroom", href: "/#newsroom", match: "/newsroom" },
   { title: "Newsroom", href: "/newsroom" },
   { title: "About", href: "/about" },
 ]
@@ -55,6 +56,9 @@ const ctaClass = cn(
 
 export function SiteHeader() {
   const pathname = usePathname()
+  const isActive = (link: (typeof links)[number]) =>
+    pathname === link.href ||
+    (link.match !== undefined && pathname.startsWith(link.match))
 
   return (
     <header className="sticky top-0 z-40 border-b bg-white">
@@ -91,7 +95,7 @@ export function SiteHeader() {
               <NavigationMenuItem key={link.title}>
                 <NavigationMenuLink
                   render={<Link href={link.href} />}
-                  active={pathname === link.href}
+                  active={isActive(link)}
                   className="px-2.5 text-sm font-medium text-[#354053] data-active:bg-transparent data-active:text-primary"
                 >
                   {link.title}
@@ -140,7 +144,7 @@ export function SiteHeader() {
                     href={link.href}
                     className={cn(
                       "rounded-md px-2 py-2 text-sm hover:bg-muted",
-                      pathname === link.href && "text-primary"
+                      isActive(link) && "text-primary"
                     )}
                   >
                     {link.title}
