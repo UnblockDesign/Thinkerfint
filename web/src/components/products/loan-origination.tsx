@@ -479,7 +479,39 @@ export const losFaqs = [
 
 export function LosCta() {
   return (
-    <section id="contact" className="relative scroll-mt-20 overflow-hidden bg-[#6d35f2]">
+    <ProductCta
+      title="See how Loan Origination fits your lending stack."
+      links={[
+        { label: "Digital Lending", href: "/#products" },
+        { label: "Databridge", href: "/products/databridge" },
+      ]}
+      href="mailto:hello@thinkerfint.com"
+    />
+  )
+}
+
+/** Purple "Next step" callout that closes a product or service page. */
+export function ProductCta({
+  title,
+  description,
+  links,
+  href,
+  className,
+}: {
+  title: string
+  description?: string
+  links?: { label: string; href: string }[]
+  href: string
+  className?: string
+}) {
+  return (
+    <section
+      id="contact"
+      className={cn(
+        "relative flex scroll-mt-20 overflow-hidden bg-[#6d35f2]",
+        className
+      )}
+    >
       <span
         aria-hidden
         className="absolute -top-[150px] right-[229px] hidden h-[520px] w-[420px] origin-center rotate-[28deg] bg-white/5 lg:block"
@@ -494,24 +526,28 @@ export function LosCta() {
             Next step
           </p>
           <h2 className="text-[36px] leading-[1.06] font-medium text-white md:text-[54px]">
-            See how Loan Origination fits your lending stack.
+            {title}
           </h2>
-          <div className="flex gap-6 text-sm font-medium text-white">
-            <Link href="/#products" className="flex items-center gap-2 hover:underline">
-              Digital Lending
-              <ArrowRightIcon className="size-4" />
-            </Link>
-            <Link
-              href="/products/databridge"
-              className="flex items-center gap-2 hover:underline"
-            >
-              Databridge
-              <ArrowRightIcon className="size-4" />
-            </Link>
-          </div>
+          {description && (
+            <p className="text-sm font-medium text-white">{description}</p>
+          )}
+          {links && (
+            <div className="flex gap-6 text-sm font-medium text-white">
+              {links.map((link) => (
+                <Link
+                  key={link.label}
+                  href={link.href}
+                  className="flex items-center gap-2 hover:underline"
+                >
+                  {link.label}
+                  <ArrowRightIcon className="size-4" />
+                </Link>
+              ))}
+            </div>
+          )}
         </div>
         <Link
-          href="mailto:hello@thinkerfint.com"
+          href={href}
           className="inline-flex h-12 shrink-0 items-center gap-2.5 rounded-lg border border-[#111827] bg-[#111827] px-6 text-sm font-medium text-white transition-colors hover:bg-black"
         >
           Book a demo
