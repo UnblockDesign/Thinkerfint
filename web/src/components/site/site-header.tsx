@@ -42,11 +42,22 @@ export const products = [
   },
 ]
 
-const links: { title: string; href: string; match?: string }[] = [
-  { title: "Services", href: "/#lenders" },
-  { title: "Newsroom", href: "/newsroom", match: "/newsroom" },
+const links = [
+  { title: "Services", href: "/services" },
+  { title: "Newsroom", href: "/newsroom" },
   { title: "About", href: "/about" },
 ]
+
+// One set of states for every menu item (desktop links, Products trigger,
+// dropdown items, mobile menu): hover and open = light grey, press = darker
+// grey, current page = primary text, disabled = 50% and not clickable.
+const navItemClass = cn(
+  "rounded-lg px-2.5 py-2 text-sm font-medium text-[#354053] transition-colors outline-none",
+  "hover:bg-muted active:bg-border",
+  "focus-visible:ring-3 focus-visible:ring-ring/50",
+  "aria-[current=page]:text-primary data-active:text-primary",
+  "aria-disabled:pointer-events-none aria-disabled:opacity-50 data-disabled:pointer-events-none data-disabled:opacity-50"
+)
 
 const ctaClass = cn(
   buttonVariants(),
@@ -55,9 +66,11 @@ const ctaClass = cn(
 
 export function SiteHeader() {
   const pathname = usePathname()
-  const isActive = (link: (typeof links)[number]) =>
-    pathname === link.href ||
-    (link.match !== undefined && pathname.startsWith(link.match))
+  // A section stays current on its sub-pages (e.g. a Newsroom article)
+  const isCurrent = (href: string) =>
+    !href.includes("#") &&
+    (pathname === href || pathname.startsWith(`${href}/`))
+  const isProductsPage = products.some((item) => isCurrent(item.href))
 
   return (
     <header className="sticky top-0 z-40 border-b bg-white">
@@ -67,7 +80,9 @@ export function SiteHeader() {
         <NavigationMenu className="absolute left-1/2 hidden -translate-x-1/2 lg:flex">
           <NavigationMenuList className="gap-2">
             <NavigationMenuItem>
-              <NavigationMenuTrigger className="text-[13px] text-foreground">
+              <NavigationMenuTrigger
+                className={cn(navItemClass, isProductsPage && "text-primary")}
+              >
                 Products
               </NavigationMenuTrigger>
               <NavigationMenuContent>
@@ -76,11 +91,13 @@ export function SiteHeader() {
                     <li key={item.title}>
                       <NavigationMenuLink
                         render={<Link href={item.href} />}
-                        className="flex-col items-start gap-0.5"
+                        active={isCurrent(item.href)}
+                        className={cn(
+                          navItemClass,
+                          "flex-col items-start gap-0.5"
+                        )}
                       >
-                        <span className="font-medium text-foreground">
-                          {item.title}
-                        </span>
+                        <span>{item.title}</span>
                         <span className="text-xs text-muted-foreground">
                           {item.description}
                         </span>
@@ -94,8 +111,8 @@ export function SiteHeader() {
               <NavigationMenuItem key={link.title}>
                 <NavigationMenuLink
                   render={<Link href={link.href} />}
-                  active={isActive(link)}
-                  className="px-2.5 text-sm font-medium text-[#354053] data-active:bg-transparent data-active:text-primary"
+                  active={isCurrent(link.href)}
+                  className={navItemClass}
                 >
                   {link.title}
                 </NavigationMenuLink>
@@ -106,7 +123,7 @@ export function SiteHeader() {
 
         <div className="flex items-center gap-3">
           <Link href="#contact" className={cn(ctaClass, "hidden sm:inline-flex")}>
-            Consult our expert
+            Consult Our Expert
           </Link>
           <Sheet>
             <SheetTrigger
@@ -131,7 +148,8 @@ export function SiteHeader() {
                   <Link
                     key={item.title}
                     href={item.href}
-                    className="rounded-md px-2 py-2 text-sm hover:bg-muted"
+                    aria-current={isCurrent(item.href) ? "page" : undefined}
+                    className={navItemClass}
                   >
                     {item.title}
                   </Link>
@@ -141,16 +159,14 @@ export function SiteHeader() {
                   <Link
                     key={link.title}
                     href={link.href}
-                    className={cn(
-                      "rounded-md px-2 py-2 text-sm hover:bg-muted",
-                      isActive(link) && "text-primary"
-                    )}
+                    aria-current={isCurrent(link.href) ? "page" : undefined}
+                    className={navItemClass}
                   >
                     {link.title}
                   </Link>
                 ))}
                 <Link href="#contact" className={cn(ctaClass, "mt-4")}>
-                  Consult our expert
+                  Consult Our Expert
                 </Link>
               </nav>
             </SheetContent>
