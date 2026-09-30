@@ -11,9 +11,15 @@ const columns = [
   { title: "COMPANY", links: ["About", "Contact", "Newsroom"] },
 ]
 
+const hrefs: Record<string, string> = {
+  About: "/about",
+  Contact: "/about#contact",
+  Newsroom: "/#newsroom",
+}
+
 export function SiteFooter() {
   return (
-    <footer id="about" className="bg-ink text-[#f9fafb]">
+    <footer className="bg-ink text-[#f9fafb]">
       <Container className="flex flex-col gap-8 pt-12 pb-6">
         <div className="flex flex-col justify-between gap-10 md:flex-row">
           <div className="flex max-w-[380px] flex-col gap-4">
@@ -36,7 +42,7 @@ export function SiteFooter() {
                 <ul>
                   {col.links.map((link) => (
                     <li key={link}>
-                      <Link href="#" className="hover:underline">
+                      <Link href={hrefs[link] ?? "#"} className="hover:underline">
                         {link}
                       </Link>
                     </li>

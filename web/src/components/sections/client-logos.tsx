@@ -8,12 +8,16 @@ const logos = [
   { src: "/logos/kkp.png", alt: "KKP", width: 50 },
 ]
 
-export function ClientLogos() {
+export function ClientLogos({
+  title = "Trusted by lenders across Thailand",
+}: {
+  title?: string
+}) {
   return (
     <section className="bg-background">
       <Container className="flex flex-col gap-8 py-14 lg:py-[72px]">
         <p className="text-center text-xl font-medium text-[#9ba6b9]">
-          Trusted by lenders across Thailand
+          {title}
         </p>
         <ul className="grid grid-cols-3 gap-4 md:grid-cols-5">
           {logos.map((logo, i) => (

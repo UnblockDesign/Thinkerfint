@@ -1,6 +1,7 @@
 "use client"
 
 import Link from "next/link"
+import { usePathname } from "next/navigation"
 import { MenuIcon } from "lucide-react"
 
 import { Button, buttonVariants } from "@/components/ui/button"
@@ -26,25 +27,25 @@ import { cn } from "@/lib/utils"
 export const products = [
   {
     title: "Digital Lending",
-    href: "#products",
+    href: "/#products",
     description: "End-to-end digital lending on top of your existing core.",
   },
   {
     title: "Loan Origination",
-    href: "#products",
+    href: "/#products",
     description: "Guided origination workflows with governed decisions.",
   },
   {
     title: "Databridge",
-    href: "#products",
+    href: "/#products",
     description: "Governed integrations with core and data providers.",
   },
 ]
 
 const links = [
-  { title: "Services", href: "#lenders" },
-  { title: "Newsroom", href: "#newsroom" },
-  { title: "About", href: "#about" },
+  { title: "Services", href: "/#lenders" },
+  { title: "Newsroom", href: "/#newsroom" },
+  { title: "About", href: "/about" },
 ]
 
 const ctaClass = cn(
@@ -53,6 +54,8 @@ const ctaClass = cn(
 )
 
 export function SiteHeader() {
+  const pathname = usePathname()
+
   return (
     <header className="sticky top-0 z-40 border-b bg-white">
       <div className="relative mx-auto flex h-[76px] w-full max-w-[1440px] items-center justify-between px-4 md:px-10 lg:px-[88px]">
@@ -88,7 +91,8 @@ export function SiteHeader() {
               <NavigationMenuItem key={link.title}>
                 <NavigationMenuLink
                   render={<Link href={link.href} />}
-                  className="px-2.5 text-sm font-medium text-[#354053]"
+                  active={pathname === link.href}
+                  className="px-2.5 text-sm font-medium text-[#354053] data-active:bg-transparent data-active:text-primary"
                 >
                   {link.title}
                 </NavigationMenuLink>
@@ -134,7 +138,10 @@ export function SiteHeader() {
                   <Link
                     key={link.title}
                     href={link.href}
-                    className="rounded-md px-2 py-2 text-sm hover:bg-muted"
+                    className={cn(
+                      "rounded-md px-2 py-2 text-sm hover:bg-muted",
+                      pathname === link.href && "text-primary"
+                    )}
                   >
                     {link.title}
                   </Link>
