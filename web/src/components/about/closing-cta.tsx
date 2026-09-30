@@ -5,7 +5,7 @@ import { buttonVariants } from "@/components/ui/button"
 import { Container } from "@/components/site/container"
 import { cn } from "@/lib/utils"
 
-export function ClosingCta() {
+export function ClosingCta({ href = "#contact" }: { href?: string }) {
   return (
     <section className="bg-primary">
       <Container className="flex flex-col items-start justify-between gap-8 py-14 lg:flex-row lg:items-center lg:py-[58px]">
@@ -19,7 +19,7 @@ export function ClosingCta() {
           </p>
         </div>
         <Link
-          href="#contact"
+          href={href}
           className={cn(
             buttonVariants({ variant: "secondary" }),
             "h-12 shrink-0 gap-2.5 rounded-[4px] bg-white px-5 text-sm font-semibold text-foreground"
